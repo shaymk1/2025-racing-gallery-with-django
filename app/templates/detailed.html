@@ -1,1 +1,27 @@
-<h3>Detailed view</h3>
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<h2 class="m-5">Detailed View</h2>
+
+
+<div class="container">
+
+    <div class="row justify-content-center">
+        <div class="col">
+           
+            <div style=" height: 90vh;">
+                <img src="../static/images/Jan/aunty-boy-2.jpg" alt="aunty and boy pic" >
+                <img class= "image-thumbnail" src="../static/images/Jan/aunty-boy-2.jpg" class="card-img-top" alt="an image of aunty and my boy">
+                <p>Aunty and my boy Rati at Wonderpark after the race</p>
+            </div>
+            <button type="button" class="btn btn-link">
+                <a  class='btn btn-dark my-3'href="{% url "home" %}">Go Back</a>
+            </button>
+            
+        </div>
+
+            
+</div>
+{% endblock %}
+
+

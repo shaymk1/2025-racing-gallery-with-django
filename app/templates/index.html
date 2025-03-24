@@ -7,7 +7,7 @@
 
     <div class="row">
         <div class="col-md-3">
-            <div class="card" >
+            <div class="card m-5" >
                 <div class="card-header">
                   Categories
                 </div>
@@ -22,14 +22,70 @@
 
         <div class="col-md-9">
            <div class="row">
-            <div class="card" >
-                <img src="..." class="card-img-top" alt="...">
-                <div class="card-body">
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+
+
+            {% comment %} pic-1 {% endcomment %}
+           <div class="col-md-4">
+               <div class="card my-2" >
+                        <img class= "image-thumbnail" src="../static/images/Jan/aunty-boy-2.jpg" class="card-img-top" alt="an image of aunty and my boy">
+                        <div class="card-body">
+                            <p class="card-text">Aunty and Rati at Wonderpark</p>
+                            <p class="card-text">Category : Jan</p>
+                            <a  class = 'btn btn-outline-dark btn-sm m-1' href="{%  url "detailed_view"  5 %}">View</a>
+                        </div>
                 </div>
-              </div>
+           </div>
+
+            
+            {% comment %} pic-2 {% endcomment %}
+           <div class="col-md-4">
+            <div class="card my-2" >
+                     <img class= "image-thumbnail" src="../static/images/Jan/aunty-boy-2.jpg" class="card-img-top" alt="an image of aunty and my boy">
+                     <div class="card-body">
+                         <p class="card-text">Aunty and Rati at Wonderpark</p>
+                         <p class="card-text">Category : Jan</p>
+                         <a  class = 'btn btn-outline-dark btn-sm m-1' href="{%  url "detailed_view"  5 %}">View</a>
+                     </div>
+             </div>
+        </div>
+
+
+        
+            {% comment %} pic-3 {% endcomment %}
+            <div class="col-md-4">
+                <div class="card my-2" >
+                         <img class= "image-thumbnail" src="../static/images/Jan/aunty-boy-2.jpg" class="card-img-top" alt="an image of aunty and my boy">
+                         <div class="card-body">
+                             <p class="card-text">Aunty and Rati at Wonderpark</p>
+                             <p class="card-text">Category : Jan</p>
+                             <a  class = 'btn btn-outline-dark btn-sm m-1' href="{%  url "detailed_view"  5 %}">View</a>
+                         </div>
+                 </div>
+            </div>
+
+            
+            {% comment %} pic-4{% endcomment %}
+           <div class="col-md-4">
+            <div class="card my-2" >
+                     <img class= "image-thumbnail" src="../static/images/Jan/aunty-boy-2.jpg" class="card-img-top" alt="an image of aunty and my boy">
+                     <div class="card-body">
+                         <p class="card-text">Aunty and Rati at Wonderpark</p>
+                         <p class="card-text">Category : Jan</p>
+                         <a  class = 'btn btn-outline-dark btn-sm m-1' href="{%  url "detailed_view"  5 %}">View</a>
+                     </div>
+             </div>
+        </div>
+
+
+
+
            </div>
         </div>
+
+
+
+
+
     </div>
 </div>
 {% endblock  %}
