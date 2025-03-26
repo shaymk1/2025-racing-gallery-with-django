@@ -2,21 +2,28 @@
 {% load static %}
 {% block content %}
 
-<h1 class="m-5">Detailed View</h1>
+
+
+<h2 class="m-5">Detailed View</h2>
 <div class="container">
+
     <div class="row justify-content-center">
         <div class="col">
+           
             <div style=" height: 90vh;">
-                <img  style="max-width=100%;max-height=100%;" src="https://unsplash.com/photos/pair-of-blue-and-white-adidas-running-shoes-XiZ7pRvCzro" alt="boy and aunty pic">
+                      
+         
+            <img src="../static/images/Feb/wesgate-feb-1.jpg" alt=""> 
                 <p>Aunty and my boy Rati at Wonderpark after the race</p>
             </div>
             <button type="button" class="btn btn-link">
-                <a  class='btn btn-dark my-3'href="{% url 'home' %}">Go Back</a>
+                <a  class='btn btn-dark my-3'href="{% url "home" %}">Go Back</a>
             </button>
+            
         </div>
-        
-    </div>
 
+            
 </div>
+{% endblock %}
 
-{% endblock  %}
+

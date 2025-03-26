@@ -13,6 +13,8 @@
     <title>My 2025 Racing Gallery</title>
 </head>
 <body class="m-5">
+
+
   <style>
     .image-thumbnail {
         height: 200px;
@@ -42,6 +44,7 @@
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   Categories
                 </a>
+              </li>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                   <li><a class="dropdown-item" href="#">January</a></li>
                   <li><a class="dropdown-item" href="#">February</a></li>
@@ -56,9 +59,14 @@
                     <li><a class="dropdown-item" href="#">November</a></li>
                     <li><a class="dropdown-item" href="#">December</a></li>
                 </ul>
-              </li>
+               </li>
+               <li class="nav-item">
+                <a class="nav-link" href="{% url "add_photo" %}">Add a Pic</a>
+              </li> 
                 <li class="nav-item">
                     <a class="nav-link" href="{% url "about" %}">About</a>
+                </li> 
+
             </ul>
             <form class="d-flex">
               <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
