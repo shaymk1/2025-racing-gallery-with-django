@@ -2,6 +2,64 @@
 {% load static %}
 {% block content %}
 
+
+<style>
+.bg-image {
+    position: relative; /* Required for positioning the pseudo-element */
+    background-image: url('your-image.jpg'); /* Replace with your image */
+    background-size: cover; /* Or other desired background-size */
+}
+
+.bg-image::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)); /* Adjust opacity as needed */
+    z-index: 1; /* Ensure the overlay is above the image */
+}
+
+</style>
 <h1>About Me</h1>
-<img src="../static/images/Feb/wesgate-feb-1.jpg" alt="">
+{% comment %} <div class="container"> {% endcomment %}
+
+
+    {% comment %} <div class="bg-image" 
+          style="background-image: url('../static/images/clearwater-1.jpg');
+           height: 100vh"> 
+    </div> {% endcomment %}
+
+
+     
+  
+           
+{% comment %} </div> {% endcomment %}
+
+
+
+<!-- Hero 6 - Bootstrap Brain Component -->
+<section class="py-4 py-md-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="container-fluid bsb-hero-6 bsb-overlay border border-dark" style="--bsb-overlay-opacity: 0.5; --bsb-overlay-bg-color: var(--bs-light-rgb); background-image: url('../static/images/clearwater-2.jpg');">
+            <div class="row justify-content-md-center align-items-center">
+              <div class="col-12 col-md-11 col-xl-10">
+                <h2 class="display-1 text-center text-md-start text-shadow-head fw-bold mb-4">Welcome to Presta</h2>
+                <p class="lead text-center text-md-start text-shadow-body mb-5 d-flex justify-content-sm-center justify-content-md-start">
+                  <span class="col-12 col-sm-10 col-md-8 col-xxl-7">Where every squeak, every rattle, and every wobble finds its solution, ensuring your ride is always smooth and worry-free.</span>
+                </p>
+                <div class="d-grid gap-2 d-sm-flex justify-content-sm-center justify-content-md-start">
+                  <a href="#!" class="btn bsb-btn-2xl btn-outline-dark">Explore More</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
 {% endblock  %}
