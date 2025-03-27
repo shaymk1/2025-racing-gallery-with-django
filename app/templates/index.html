@@ -5,19 +5,21 @@
 
 <div class="container">
     {% comment %} <h1 class="m-5">My 2025 Running Journey </h1> {% endcomment %}
-    <div class="col-lg-6 col-md-6 col-sml-12">
-        <h1  class="m-2">My 2025 Running Journey </h1>
-      
-      </div>
-      
-      <div class="col-lg-6 col-md-6 col-sml-12">
-      
-        <form class="d-flex m-3">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
-          </form>
-      
-      </div>
+   
+       
+            <h1  class="m-2  text-center">My 2025 Running Journey </h1>
+        
+       
+        
+       
+        
+            <form class="d-flex m-4 justify-content-center" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+        
+       
+   
 
 
 
@@ -34,7 +36,10 @@
                    
                   <li class="list-group-item">All</li>
                   {% for category in  categories %}
-                  <li class="list-group-item">{{category.name}}</li>
+                  <a class="nav-link" href="">
+                    <li class="list-group-item">{{category.name}}</li>
+                  </a>
+                  
                   {% endfor %}
                  
                     <a  href="{% url "add_photo" %}" class="btn btn-secondary btn-sm m-1">Add a Pic</a>
@@ -47,69 +52,28 @@
 
 
             {% comment %} pic-1 {% endcomment %}
+            {% for photo in photos %}
            <div class="col-md-4">
                <div class="card my-2" >
-                        <img class= "image-thumbnail" src="../static/images/Jan/aunty-boy-2.jpg" class="card-img-top" alt="an image of aunty and my boy">
+                        <img class= "image-thumbnail" src="{{photo.pic.url}}" class="card-img-top" alt="an image of aunty and my boy">
                         <div class="card-body">
-                            <p class="card-text">Aunty and Rati at Wonderpark</p>
-                            <p class="card-text">Category : Jan</p>
-                            <a  class = 'btn btn-outline-dark btn-sm m-1' href="{%  url "detailed_view"  5 %}">View</a>
+                            <p class="card-text fw-bold">{{photo.title}}</p>
+                            <p class="card-text ">Month : {{photo.category.name}}</p>
+                            <a  class = 'btn btn-outline-dark btn-sm m-1' href="{%  url "detailed_view" photo.id  %}">View</a>
                         </div>
                 </div>
            </div>
+           {% empty %}
+           <h3>Sorry, no photos in that category..</h3>
 
-            
-            {% comment %} pic-2 {% endcomment %}
-           <div class="col-md-4">
-            <div class="card my-2" >
-                     <img class= "image-thumbnail" src="../static/images/Jan/aunty-boy-2.jpg" class="card-img-top" alt="an image of aunty and my boy">
-                     <div class="card-body">
-                         <p class="card-text">Aunty and Rati at Wonderpark</p>
-                         <p class="card-text">Category : Jan</p>
-                         <a  class = 'btn btn-outline-dark btn-sm m-1' href="{%  url "detailed_view"  5 %}">View</a>
-                     </div>
-             </div>
-        </div>
+           {% endfor %}
+
+         
 
 
         
-            {% comment %} pic-3 {% endcomment %}
-            <div class="col-md-4">
-                <div class="card my-2" >
-                         <img class= "image-thumbnail" src="../static/images/Jan/aunty-boy-2.jpg" class="card-img-top" alt="an image of aunty and my boy">
-                         <div class="card-body">
-                             <p class="card-text">Aunty and Rati at Wonderpark</p>
-                             <p class="card-text">Category : Jan</p>
-                             <a  class = 'btn btn-outline-dark btn-sm m-1' href="{%  url "detailed_view"  5 %}">View</a>
-                         </div>
-                 </div>
-            </div>
 
-            
-            {% comment %} pic-4{% endcomment %}
-        <div class="col-md-4">
-            <div class="card my-2" >
-                     <img class= "image-thumbnail" src="../static/images/Jan/aunty-boy-2.jpg" class="card-img-top" alt="an image of aunty and my boy">
-                     <div class="card-body">
-                         <p class="card-text">Aunty and Rati at Wonderpark</p>
-                         <p class="card-text">Category : Jan</p>
-                         <a  class = 'btn btn-outline-dark btn-sm m-1' href="{%  url "detailed_view"  5 %}">View</a>
-                     </div>
-             </div>
-        </div>
-
-              
-            {% comment %} pic-4{% endcomment %}
-            <div class="col-md-4">
-                <div class="card my-2" >
-                         <img class= "image-thumbnail" src="../static/images/Jan/aunty-boy-2.jpg" class="card-img-top" alt="an image of aunty and my boy">
-                         <div class="card-body">
-                             <p class="card-text">Aunty and Rati at Wonderpark</p>
-                             <p class="card-text">Category : Jan</p>
-                             <a  class = 'btn btn-outline-dark btn-sm m-1' href="{%  url "detailed_view"  5 %}">View</a>
-                         </div>
-                 </div>
-            </div>
+         
 
 
 

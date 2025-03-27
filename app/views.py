@@ -1,3 +1,4 @@
+
 from django.shortcuts import render
 from .models import Category, Photo
 
@@ -14,7 +15,9 @@ def add_photo(request):
 
 
 def detailed_view(request, pk):
-    return render(request, "detailed.html")
+    photos = Photo.objects.get(id=pk)
+    context = {"photos": photos}
+    return render(request, "detailed.html", context)
 
 
 def about(request):
