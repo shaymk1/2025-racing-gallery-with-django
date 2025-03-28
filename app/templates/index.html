@@ -13,7 +13,8 @@
         
        
         
-            <form class="d-flex m-4 justify-content-center" role="search">
+            <form class="d-flex m-4 justify-content-center"     role="search" method = "GET" action="{% url 'search' %}">
+              {% csrf_token %}
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
@@ -34,11 +35,19 @@
                 </div>
                 <ul class="list-group list-group-flush">
                    
-                  <li class="list-group-item">All</li>
+                  <li class="list-group-item">
+                    <a href="{% url "home" %}">All</a>
+                  </li>
                   {% for category in  categories %}
-                  <a class="nav-link" href="">
-                    <li class="list-group-item">{{category.name}}</li>
-                  </a>
+                  
+                    <li class="list-group-item">
+                      <a class="nav-link" href="{% url "home" %}?category={{category.name}}">
+                        {{category.name}}
+                      </a>
+                      
+                      
+                    </li>
+                  
                   
                   {% endfor %}
                  
@@ -58,7 +67,7 @@
                         <img class= "image-thumbnail" src="{{photo.pic.url}}" class="card-img-top" alt="an image of aunty and my boy">
                         <div class="card-body">
                             <p class="card-text fw-bold">{{photo.title}}</p>
-                            <p class="card-text ">Month : {{photo.category.name}}</p>
+                            <p class="card-text ">Category : {{photo.category.name}}</p>
                             <a  class = 'btn btn-outline-dark btn-sm m-1' href="{%  url "detailed_view" photo.id  %}">View</a>
                         </div>
                 </div>

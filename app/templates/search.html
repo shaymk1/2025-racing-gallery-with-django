@@ -1,0 +1,24 @@
+
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+{% if query %}
+    <div>
+        <div>
+        <!-- loop through search query -->
+        {% for post in posts %}
+            <div>
+                <!-- return search query -->
+                 <img src="{{post.pic}}" alt="pic">
+                <p>{{post.title}}</p>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+{% else %}
+    <!-- return a message if the user does not enter a search query -->
+    <h1>Sorry, nothing found..</h1>
+{% endif %}
+
+{% endblock %}
