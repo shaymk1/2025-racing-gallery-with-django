@@ -3,15 +3,49 @@
 {% load static %}
 {% block content %}
 
-{% if query %}
-    <div>
+
+
+
+
+
+
+<div class="container my-4">
+    <a href="{% url 'home' %}" class="btn btn-dark my-3">Go Back</a>
+    {% if query %}  
+       
+        <div class="col-md-4">
+           
+            <!-- Loop through search query -->
+            {% for post in posts %}
+                <div class="card my-2">
+                    <!-- Display search results -->
+                    <img   class= "image-thumbnail" src="{{ post.pic.url }}" alt="pic" pic" style="max-width: 100%; height: auto;">
+                    <div class="card-body">
+                        <p class="card-text fw-bold">{{ post.title }}</p>
+                        <p>{{ post.description }}</p>
+                    </div>
+                </div>
+       
+            {% endfor %}
+    {% else %}
+        <h1>Sorry, nothing found..</h1>
+    {% endif %}
+    </div>
+   
+</div>
+
+{% endblock %}
+
+{% comment %} {% if query %}
+    <div class="container">
         <div>
+            <a href="{% url 'home' %}" class="btn btn-dark my-3">Go Back</a>
         <!-- loop through search query -->
         {% for post in posts %}
             <div>
                 <!-- return search query -->
                  <img src="{{post.pic}}" alt="pic">
-                <p>{{post.title}}</p>
+                <p>{{post.description}}</p>
             </div>
         {% endfor %}
         </div>
@@ -19,6 +53,5 @@
 {% else %}
     <!-- return a message if the user does not enter a search query -->
     <h1>Sorry, nothing found..</h1>
-{% endif %}
+{% endif %} {% endcomment %}
 
-{% endblock %}

@@ -12,13 +12,13 @@
        
         
        
-        
-            <form class="d-flex m-4 justify-content-center"     role="search" method = "GET" action="{% url 'search' %}">
-              {% csrf_token %}
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
-        
+
+
+         <form method="get" action="{% url 'search' %}" class="d-flex m-4 justify-content-center">
+          {% csrf_token %}
+          <input type="search" name="q" placeholder="Search..." class="form-control  me-2" value="{{ query }}" aria-label="Search">
+          <button type="submit" class="btn btn-primary mt-2">Search</button>
+      </form>
        
    
 

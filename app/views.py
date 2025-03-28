@@ -60,12 +60,20 @@ def about(request):
     return render(request, "about.html")
 
 
+# def search(request):
+#     # for search query
+#     # Check if the request is a post request.
+#     if request.method == "GET":
+#         # Retrieve the search query entered by the user
+#         search_query = request.Get.get["search_query"]
+#         # Filter your model by the search query
+#         posts = Photo.objects.filter(title__icontains=search_query)
+#     return render(request, "search.html", {"query": posts, "posts": posts})
+
+
 def search(request):
-    # for search query
-    # Check if the request is a post request.
-    if request.method == "GET":
-        # Retrieve the search query entered by the user
-        search_query = request.Get.get["search_query"]
-        # Filter your model by the search query
-        posts = Photo.objects.filter(title__icontains=search_query)
-    return render(request, "search.html", {"query": posts, "posts": posts})
+    query = request.GET.get("q")  # Get the search query from the URL
+    posts = (
+        Photo.objects.filter(title__icontains=query) if query else []
+    )  # Filter results
+    return render(request, "search.html", {"query": query, "posts": posts})
