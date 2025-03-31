@@ -101,7 +101,7 @@ def add_photo(request):
             )
         else:
             category = None
-            # Create the Photo object
+            # save the Photo object
         photo = Photo.objects.create(
             category=category,
             title=data["title"],
@@ -109,7 +109,7 @@ def add_photo(request):
             pic=images,
         )
         # Resize the image using PIL
-        # Ensure the image is saved before resizing
+      
         if images:
             img = Image.open(photo.pic.path)
             img = img.resize((800, 600))  # Resize to 800x600 or any desired size
