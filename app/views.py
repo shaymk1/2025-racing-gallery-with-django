@@ -5,21 +5,62 @@ from django.http import JsonResponse
 from PIL import Image
 
 
+# def home(request):
+#     category = request.GET.get("category")  # get the category from the request
+#     if category and category != "all":
+#         photos = Photo.objects.filter(category__name=category)
+#     else:
+#         photos = Photo.objects.all()
+#     categories = Category.objects.all()
+
+#     # Pagination
+#     paginator = Paginator(photos, 6)  # Show 6 photos per page
+#     page_number = request.GET.get("page", 1)
+#     page_obj = paginator.get_page(page_number)
+
+#     # Check if it's an AJAX request
+#     if request.headers.get("x-requested-with") == "XMLHttpRequest":
+#         photos_data = [
+#             {
+#                 "id": photo.id,
+#                 "pic_url": photo.pic.url,
+#                 "title": photo.title,
+#                 "category": photo.category.name if photo.category else "Uncategorized",
+#                 "description": photo.description,
+#             }
+#             for photo in page_obj
+#         ]
+#         return JsonResponse({"photos": photos_data, "has_next": page_obj.has_next()})
+
+#     context = {
+#         "categories": categories,
+#         "photos": page_obj,
+#         "category": category,
+#     }
+
+#     return render(request, "index.html", context)
+
+
+#
+
+
 def home(request):
-    category = request.GET.get("category")  # get the category from the request
-    if category:
+    category = request.GET.get("category")  # Get the category filter from the request
+    if category and category != "all":
         photos = Photo.objects.filter(category__name=category)
     else:
         photos = Photo.objects.all()
+
     categories = Category.objects.all()
 
-    # Pagination
+    # Paginate the photos
     paginator = Paginator(photos, 6)  # Show 6 photos per page
     page_number = request.GET.get("page", 1)
     page_obj = paginator.get_page(page_number)
 
-    # Check if it's an AJAX request
-    if request.headers.get("x-requested-with") == "XMLHttpRequest":
+    if (
+        request.headers.get("x-requested-with") == "XMLHttpRequest"
+    ):  # Check if it's an AJAX request
         photos_data = [
             {
                 "id": photo.id,
@@ -35,9 +76,8 @@ def home(request):
     context = {
         "categories": categories,
         "photos": page_obj,
-        "category": category,
+        "category": category,  # Pass the selected category to the template
     }
-
     return render(request, "index.html", context)
 
 

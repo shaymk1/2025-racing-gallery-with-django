@@ -8,8 +8,11 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col my-4">
-
-            <a href="{% url 'home' %}" class="btn btn-dark my-3">Go Back</a>
+            <div class="btn-toolbar" style="padding-left: 15px">
+                <a href="{% url 'home' %}" class="btn btn-dark my-3">Go Back</a>
+                <a href="{% url 'delete_photo' photos.id %}" class="btn btn-danger m-3">Delete</a>
+            </div>
+          
 
             <div style="height: 90vh;">
                 <img style="max-width: 100%; max-height: 100%;" src="{{photos.pic.url}}">
@@ -19,7 +22,7 @@
         </div>
        
     </div>
-    <a  href="{% url "delete_photo" photos.id %}" class="btn btn-secondary btn-sm my-4">Delete a Pic</a>
+    {% comment %} <a  href="{% url "delete_photo" photos.id %}" class="btn btn-secondary btn-sm my-4">Delete a Pic</a> {% endcomment %}
 </div>
 
 {% endblock  %}
