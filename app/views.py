@@ -1,20 +1,42 @@
 from django.shortcuts import render, redirect
-from .models import Category, Photo, About
+from .models import Category, Photo
+from django.core.paginator import Paginator
+from django.http import JsonResponse
 
 
 def home(request):
     category = request.GET.get("category")  # get the category from the request
-    if category is None:
-        photos = Photo.objects.all()
-    else:
+    if category:
         photos = Photo.objects.filter(category__name=category)
+    else:
+        photos = Photo.objects.all()
     categories = Category.objects.all()
+
+    # Pagination
+    paginator = Paginator(photos, 6)  # Show 6 photos per page
+    page_number = request.GET.get("page", 1)
+    page_obj = paginator.get_page(page_number)
+
+    # Check if it's an AJAX request
+    if request.headers.get("x-requested-with") == "XMLHttpRequest":
+        photos_data = [
+            {
+                "id": photo.id,
+                "pic_url": photo.pic.url,
+                "title": photo.title,
+                "category": photo.category.name if photo.category else "Uncategorized",
+                "description": photo.description,
+            }
+            for photo in page_obj
+        ]
+        return JsonResponse({"photos": photos_data, "has_next": page_obj.has_next()})
 
     context = {
         "categories": categories,
-        "photos": photos,
+        "photos": page_obj,
         "category": category,
     }
+
     return render(request, "index.html", context)
 
 
@@ -80,13 +102,46 @@ def delete_photo(request, pk):
 #         return redirect("home")
 
 
-def about(request):
-    return render(request, "about.html")
-
-
 def search(request):
     query = request.GET.get("q")  # Get the search query from the URL
     posts = (
         Photo.objects.filter(title__icontains=query) if query else []
     )  # Filter results
     return render(request, "search.html", {"query": query, "posts": posts})
+
+
+def about(request):
+    return render(request, "about.html")
+
+
+# def home(request):
+#     category = request.GET.get("category")  # Get the category from the request
+#     if category is None:
+#         photos = Photo.objects.all()
+#     else:
+#         photos = Photo.objects.filter(category__name=category)
+
+#     categories = Category.objects.all()
+
+#     # Pagination
+#     paginator = Paginator(photos, 6)  # Show 6 photos per page
+#     page_number = request.GET.get("page", 1)
+#     page_obj = paginator.get_page(page_number)
+
+#     if request.headers.get('x-requested-with') == 'XMLHttpRequest':  # Check if it's an AJAX request
+#         photos_data = [
+#             {
+#                 "id": photo.id,
+#                 "pic_url": photo.pic.url,
+#                 "description": photo.description,
+#             }
+#             for photo in page_obj
+#         ]
+#         return JsonResponse({"photos": photos_data, "has_next": page_obj.has_next()})
+
+#     context = {
+#         "categories": categories,
+#         "photos": page_obj,
+#         "category": category,
+#     }
+#     return render(request, "index.html", context)

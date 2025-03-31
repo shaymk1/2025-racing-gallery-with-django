@@ -1,0 +1,58 @@
+
+from django.core.paginator import Paginator
+from django.http import JsonResponse
+
+def home(request):
+    category = request.GET.get("category")  # Get the category from the request
+    if category is None:
+        photos = Photo.objects.all()
+    else:
+        photos = Photo.objects.filter(category__name=category)
+
+    categories = Category.objects.all()
+
+    # Pagination
+    paginator = Paginator(photos, 6)  # Show 6 photos per page
+    page_number = request.GET.get("page", 1)
+    page_obj = paginator.get_page(page_number)
+
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':  # Check if it's an AJAX request
+        photos_data = [
+            {
+                "id": photo.id,
+                "pic_url": photo.pic.url,
+                "description": photo.description,
+            }
+            for photo in page_obj
+        ]
+        return JsonResponse({"photos": photos_data, "has_next": page_obj.has_next()})
+
+    context = {
+        "categories": categories,
+        "photos": page_obj,
+        "category": category,
+    }
+    return render(request, "index.html", context)
+
+-----html-------
+
+    <div class="container">
+    <div id="photo-container" class="row">
+        {% for photo in photos %}
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <img src="{{ photo.pic.url }}" class="card-img-top" alt="Photo">
+                <div class="card-body">
+                    <p class="card-text">{{ photo.description }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    {% if photos.has_next %}
+    <div class="text-center">
+        <button id="load-more" class="btn btn-primary" data-next-page="2">Load More</button>
+    </div>
+    {% endif %}
+</div>

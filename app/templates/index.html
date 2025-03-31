@@ -4,27 +4,15 @@
 
 
 <div class="container">
-    {% comment %} <h1 class="m-5">My 2025 Running Journey </h1> {% endcomment %}
-   
        
-            <h1  class="m-2  text-center">My 2025 Running Journey </h1>
-        
-       
-        
-       
-
-
-         <form method="get" action="{% url 'search' %}" class="d-flex m-4 justify-content-center">
+    <h1  class="m-2  text-center">My 2025 Running Journey </h1>
+  
+    <form method="get" action="{% url 'search' %}" class="d-flex m-4 justify-content-center">
           {% csrf_token %}
           <input type="search" name="q" placeholder="Search..." class="form-control  me-2" value="{{ query }}" aria-label="Search">
           <button type="submit" class="btn btn-primary mt-2">Search</button>
-      </form>
-       
-   
-
-
-
-
+    </form>
+      
 
     <div class="row">
         <div class="col-md-3">
@@ -52,16 +40,16 @@
                   {% endfor %}
                  
                     <a  href="{% url "add_photo" %}" class="btn btn-secondary btn-sm m-1">Add a Pic</a>
-                  
                 </ul>
               </div>
         </div>
 
         <div class="col-md-9">
-           <div class="row">
+         
 
 
             {% comment %} pic-1 {% endcomment %}
+        <div id="photo-container" class="row">
             {% for photo in photos %}
            <div class="col-md-4">
                <div class="card my-2" >
@@ -77,23 +65,14 @@
            <h3>Sorry, no photos in that category..</h3>
 
            {% endfor %}
-
-         
-
-
-        
-
-         
-
-
-
-
            </div>
+           {% comment %} pagination {% endcomment %}
+          {% if photos.has_next %}
+                <div class="text-center">
+                  <button id="load-more" class="btn btn-primary mt-2" data-next-page="{{ photos.next_page_number }}">Load More</button>
+                </div>
+           {% endif %} 
         </div>
-
-
-
-
 
     </div>
 </div>
