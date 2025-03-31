@@ -57,7 +57,11 @@
                         <div class="card-body">
                             <p class="card-text fw-bold">{{photo.title}}</p>
                             <p class="card-text ">Category : {{photo.category.name}}</p>
-                            <a  class = 'btn btn-outline-dark btn-sm m-1' href="{%  url "detailed_view" photo.id  %}">View</a>
+                            <div class="btn-toolbar" style="padding-left: 15px">
+                              <a  class = 'btn btn-outline-dark btn-sm m-1' href="{%  url "detailed_view" photo.id  %}">View</a>
+                              <a href="{% url 'edit_photo' photo.id %}" class="btn btn-warning btn-sm m-1">Edit</a>
+                              <a  href="{% url 'delete_photo' photo.id %}" class="btn btn-secondary btn-sm m-1">Delete a Pic</a>
+                          </div>
                         </div>
                 </div>
            </div>

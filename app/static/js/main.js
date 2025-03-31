@@ -1,3 +1,12 @@
+
+
+
+
+
+
+
+
+
 document.addEventListener("DOMContentLoaded", function () {
     const loadMoreButton = document.getElementById("load-more");
     const photoContainer = document.getElementById("photo-container");
@@ -17,12 +26,15 @@ document.addEventListener("DOMContentLoaded", function () {
                     data.photos.forEach((photo) => {
                         const photoHTML = `
                             <div class="col-md-4 mb-4">
-                                <div class="card">
+                                <div class="card my-2">
                                     <img src="${photo.pic_url}" class="card-img-top" alt="Photo">
                                     <div class="card-body">
                                         <p class="card-text fw-bold">${photo.title}</p>
                                         <p class="card-text">Category: ${photo.category}</p>
-                                        <p class="card-text">${photo.description}</p>
+                                        <div class="btn-toolbar" style="padding-left: 15px">
+                                            <a class="btn btn-outline-dark btn-sm m-1" href="/detailed_view/${photo.id}">View</a>
+                                            <a class="btn btn-warning btn-sm m-1" href="/photo/${photo.id}/edit/">Edit</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -41,3 +53,13 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 });
+
+
+
+
+
+
+
+
+
+

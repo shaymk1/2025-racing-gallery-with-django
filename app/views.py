@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .models import Category, Photo
 from django.core.paginator import Paginator
 from django.http import JsonResponse
+from PIL import Image
 
 
 def home(request):
@@ -60,13 +61,21 @@ def add_photo(request):
             )
         else:
             category = None
+            # Create the Photo object
         photo = Photo.objects.create(
             category=category,
+            title=data["title"],
             description=data["description"],
             pic=images,
         )
+        # Resize the image using PIL
+        # Ensure the image is saved before resizing
+        if images:
+            img = Image.open(photo.pic.path)
+            img = img.resize((800, 600))  # Resize to 800x600 or any desired size
+            img.save(photo.pic.path)
         return redirect("home")
-    context = {"categories": categories}
+    context = {"categories": categories, "Photo": Photo}
 
     return render(request, "add_photo.html", context)
 
@@ -80,26 +89,35 @@ def delete_photo(request, pk):
     return render(request, "delete_photo.html", context)
 
 
-# def edit_photo(request, pk):
-#     categories = Category.objects.all()
-#     photo = Photo.objects.get(id=pk)
-#     if request.method == "POST":
-#         data = request.POST
-#         images = request.FILES.get("images")
-#         if data["category"] != "none":
-#             category = Category.objects.get(id=data["category"])
-#         elif data["category_new"] != "":
-#             category, created = Category.objects.get_or_create(
-#                 name=data["category_new"]
-#             )
-#         else:
-#             category = None
-#         photo.category = category
-#         photo.description = data["description"]
-#         if images:
-#             photo.pic = images
-#         photo.save()
-#         return redirect("home")
+def edit_photo(request, pk):
+    categories = Category.objects.all()  # Fetch all categories
+    photo = Photo.objects.get(id=pk)  # Get the photo by its primary key
+    if request.method == "POST":
+        data = request.POST
+        images = request.FILES.get("images")  # Get the uploaded image (if any)
+        # Handle category selection
+        if data["category"] != "none":
+            category = Category.objects.get(id=data["category"])
+        elif data["category_new"] != "":
+            category, created = Category.objects.get_or_create(
+                name=data["category_new"]
+            )
+        else:
+            category = None
+        photo.title = data["title"]  # Update the title of the photo
+        # Update the category of the photo
+        photo.category = category
+        photo.description = data["description"]
+        if images:
+            photo.pic = images
+        photo.save()
+        return redirect("home")
+
+    context = {
+        "categories": categories,
+        "photo": photo,
+    }
+    return render(request, "edit_photo.html", context)
 
 
 def search(request):
