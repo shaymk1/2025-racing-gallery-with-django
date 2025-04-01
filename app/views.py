@@ -4,6 +4,7 @@ from django.core.paginator import Paginator
 from django.http import JsonResponse
 from PIL import Image
 from django.contrib import messages
+from django.shortcuts import get_object_or_404
 
 
 def home(request):
@@ -85,7 +86,8 @@ def add_photo(request):
 
 
 def delete_photo(request, pk):
-    photo = Photo.objects.get(id=pk)
+    photo = get_object_or_404(Photo, id=pk)  # Use get_object_or_404
+    # photo = Photo.objects.get(id=pk)
     if request.method == "POST":
         photo.delete()
         # Add a success message
