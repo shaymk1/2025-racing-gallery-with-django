@@ -3,45 +3,7 @@ from .models import Category, Photo
 from django.core.paginator import Paginator
 from django.http import JsonResponse
 from PIL import Image
-
-
-# def home(request):
-#     category = request.GET.get("category")  # get the category from the request
-#     if category and category != "all":
-#         photos = Photo.objects.filter(category__name=category)
-#     else:
-#         photos = Photo.objects.all()
-#     categories = Category.objects.all()
-
-#     # Pagination
-#     paginator = Paginator(photos, 6)  # Show 6 photos per page
-#     page_number = request.GET.get("page", 1)
-#     page_obj = paginator.get_page(page_number)
-
-#     # Check if it's an AJAX request
-#     if request.headers.get("x-requested-with") == "XMLHttpRequest":
-#         photos_data = [
-#             {
-#                 "id": photo.id,
-#                 "pic_url": photo.pic.url,
-#                 "title": photo.title,
-#                 "category": photo.category.name if photo.category else "Uncategorized",
-#                 "description": photo.description,
-#             }
-#             for photo in page_obj
-#         ]
-#         return JsonResponse({"photos": photos_data, "has_next": page_obj.has_next()})
-
-#     context = {
-#         "categories": categories,
-#         "photos": page_obj,
-#         "category": category,
-#     }
-
-#     return render(request, "index.html", context)
-
-
-#
+from django.contrib import messages
 
 
 def home(request):
@@ -109,13 +71,15 @@ def add_photo(request):
             pic=images,
         )
         # Resize the image using PIL
-      
+
         if images:
             img = Image.open(photo.pic.path)
             img = img.resize((800, 600))  # Resize to 800x600 or any desired size
             img.save(photo.pic.path)
+        # Add a success message
+        messages.success(request, "The picture has been added successfully!")
         return redirect("home")
-    context = {"categories": categories, "Photo": Photo}
+    context = {"categories": categories}
 
     return render(request, "add_photo.html", context)
 
@@ -124,6 +88,8 @@ def delete_photo(request, pk):
     photo = Photo.objects.get(id=pk)
     if request.method == "POST":
         photo.delete()
+        # Add a success message
+        messages.success(request, "The picture has been deleted successfully!")
         return redirect("home")
     context = {"photos": photo}
     return render(request, "delete_photo.html", context)
