@@ -10,7 +10,7 @@ class Category(models.Model):
 
 class Photo(models.Model):
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
-    pic = models.ImageField(upload_to="static/photos/", blank=False, null=False)
+    pic = models.ImageField(upload_to="static", blank=False, null=False)
     title = models.CharField(max_length=100, blank=True, null=True)
     description = models.TextField(blank=False, null=False)
 
