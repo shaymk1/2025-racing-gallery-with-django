@@ -20,7 +20,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 DEBUG = os.environ.get("DEBUG") == "True"
 
 ALLOWED_HOSTS = [
-    "*"
+    "*",
     # "127.0.0.1",  # Localhost for development
     # "localhost",  # Localhost alias
     # "vercel.com",  # Vercel domain
@@ -42,6 +42,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",  # whitenoise middleware for serving static files
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -52,17 +53,22 @@ MIDDLEWARE = [
 
 # Extra security settings
 # These settings are important for production environments to enhance security.
-if not DEBUG:
-    SECURE_SSL_REDIRECT = True
-    SESSION_COOKIE_SECURE = True  # Use secure cookies for sessions
-    CSRF_COOKIE_SECURE = True  # Use secure cookies for CSRF protection
+# if not DEBUG:
+#     # SECURE_SSL_REDIRECT = True
+#     SESSION_COOKIE_SECURE = True  # Use secure cookies for sessions
+#     CSRF_COOKIE_SECURE = True  # Use secure cookies for CSRF protection
 
-    # Enable HTTP Strict Transport Security (HSTS)
-    SECURE_HSTS_SECONDS = 31536000  # 1 year in seconds
-    SECURE_HSTS_INCLUDE_SUBDOMAINS = True  # Apply HSTS to all subdomains
-    SECURE_HSTS_PRELOAD = True  # Allow your site to be preloaded by browsers
-    SECURE_CONTENT_TYPE_NOSNIFF = True
-    SECURE_SSL_REDIRECT = True
+#     # Enable HTTP Strict Transport Security (HSTS)
+#     SECURE_HSTS_SECONDS = 31536000  # 1 year in seconds
+#     SECURE_HSTS_INCLUDE_SUBDOMAINS = True  # Apply HSTS to all subdomains
+#     SECURE_HSTS_PRELOAD = True  # Allow your site to be preloaded by browsers
+#     SECURE_CONTENT_TYPE_NOSNIFF = True
+# SECURE_SSL_REDIRECT = True
+
+# if not DEBUG:
+#     SECURE_SSL_REDIRECT = True
+# else:
+#     SECURE_SSL_REDIRECT = False
 
 ROOT_URLCONF = "main.urls"
 
@@ -132,6 +138,9 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 MEDIA_URL = "media/"
+
+# WhiteNoise settings
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 
 STATICFILES_DIRS = [
