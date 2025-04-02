@@ -1,7 +1,6 @@
 from pathlib import Path
 from dotenv import load_dotenv
 import os
-import sys
 
 
 load_dotenv()
@@ -14,18 +13,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = "django-insecure-p)qbr0&!4w*39-5wc0ltxwn09)!l5vzi&ij$rtcu98vao)@9o7"
 
-
-# with open(BASE_DIR / ".env", "r") as f:
-#     SECRET_KEY = f.read().strip()
 
 # SECURITY WARNING: don't run with debug turned on in production!
-SECRET_KEY = os.environ.get('SECRET_KEY')
-DEBUG = os.environ.get('DEBUG') == 'True'
+SECRET_KEY = os.environ.get("SECRET_KEY")
+DEBUG = os.environ.get("DEBUG") == "True"
 
 ALLOWED_HOSTS = [
-     "*"
+    "*"
     # "127.0.0.1",  # Localhost for development
     # "localhost",  # Localhost alias
     # "vercel.com",  # Vercel domain
@@ -54,6 +49,20 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
+
+# Extra security settings
+# These settings are important for production environments to enhance security.
+if not DEBUG:
+    SECURE_SSL_REDIRECT = True
+    SESSION_COOKIE_SECURE = True  # Use secure cookies for sessions
+    CSRF_COOKIE_SECURE = True  # Use secure cookies for CSRF protection
+
+    # Enable HTTP Strict Transport Security (HSTS)
+    SECURE_HSTS_SECONDS = 31536000  # 1 year in seconds
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True  # Apply HSTS to all subdomains
+    SECURE_HSTS_PRELOAD = True  # Allow your site to be preloaded by browsers
+    SECURE_CONTENT_TYPE_NOSNIFF = True
+    SECURE_SSL_REDIRECT = True
 
 ROOT_URLCONF = "main.urls"
 
