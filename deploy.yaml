@@ -1,0 +1,25 @@
+
+
+databases:
+  - name: racingdb
+    plan: free
+    databaseName: racingdb
+    user: racinguser
+    password: shay12
+
+services:
+  - type: web
+    plan: free
+    name:My 2025 Racing Journey
+    runtime: python
+    buildCommand: "./build.sh"
+     startCommand: "python -m gunicorn My 2025 Racing Journey.asgi:application -k uvicorn.workers.UvicornWorker"
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: mysitedb
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+      - key: WEB_CONCURRENCY
+        value: 4
