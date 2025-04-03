@@ -13,7 +13,8 @@ services:
     name: My 2025 Racing Journey
     runtime: python
     buildCommand: "./build.sh"
-    startCommand: "python -m gunicorn My 2025 Racing Journey.asgi:application -k uvicorn.workers.UvicornWorker"
+    # startCommand: "python -m gunicorn My 2025 Racing Journey.asgi:application -k uvicorn.workers.UvicornWorker"
+    startCommand: "gunicorn main.asgi:application -k uvicorn.workers.UvicornWorker"
     envVars:
       - key: DATABASE_URL
         fromDatabase:
